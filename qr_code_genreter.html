@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+        * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        -webkit-transition: .2s linear;
+        transition: .2s linear;
+        }
+
+        input::placeholder{
+            color: #4a4b4b;
+        }
+
+        html {
+        font-size: 62.5%;
+        }
+        body{
+            background: #244d4d;
+        }
+        section{
+            width: 38rem;
+            position: absolute;
+            top: 40%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            background-color: #eaf3f3;
+            padding: 1.5rem;
+            border-radius: .5rem;
+        }
+
+        h1{
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        p{
+            font-size: 1.5rem;
+            color: #333434;
+            margin-bottom: 1.5rem;
+        }
+
+        input{
+            width: 100%;
+            padding: 1rem;
+            border:1px solid #4a4b4b;
+            background: transparent;
+            border-radius: .5rem;
+        }
+
+        button{
+            width: 100%;
+            padding: 1rem;
+            border-radius: .5rem;
+            background-color: #244d4d;
+            color: #eaf3f3;
+        }
+
+        #qrbox{
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <section class="contener">
+        <h1>QR Code Generator</h1>
+        <p>Paste a url or enter text to create QR Code</p>
+        <input type="text" id="input_text" placeholder="Enter text or url">
+        <div id="qrbox" >
+            <img src="" id="qrimg" style="position: fixed;">
+        </div>
+        <button id="bth">Genrated QR Code</button>
+    </section>
+    <script>
+        let contener  = document.querySelector(".contener");
+        let bth       = document.getElementById("bth");
+        let input_text= document.getElementById("input_text");
+        let qrimg     = document.getElementById("qrimg");
+
+        document.getElementById("qrbox").style.height = "0rem"
+        bth.onclick = function(){
+            document.getElementById("bth").innerText = "Genrating  QR Code"
+            if(input_text.value.length > 0){
+                qrimg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +input_text.value ;
+                
+                document.getElementById("qrbox").style.height = "15rem"
+                document.getElementById("qrbox").style.transition = ".5rem ease"
+                
+                qrimg.onload = function(){
+                    contener.classList.add("active");
+                    bth.innerText = "Genrate QR Code"
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>
